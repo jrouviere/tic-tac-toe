@@ -1,7 +1,17 @@
+.row {
+    display: flex;
+    flex-direction: row;
+
+    width: 400px;
+}
+
 .cell {
     font-size: 5em;
-    display: inline;
     border: 3px solid grey;
+    
+    width: 100px;
+    height: 100px;
+    text-align: center;
 }
 
 .cell.cross:before {
