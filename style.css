@@ -1,0 +1,5 @@
+.cell {
+    font-size: 5em;
+    display: inline;
+    border: 3px solid grey;
+}
