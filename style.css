@@ -3,3 +3,11 @@
     display: inline;
     border: 3px solid grey;
 }
+
+.cell.cross:before {
+    content: "\2718";
+}
+
+.cell.circle:before {
+    content: "\25cb";
+}
