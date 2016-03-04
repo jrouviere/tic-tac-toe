@@ -58,19 +58,29 @@ class GameStatus extends React.Component {
                 break;
         }
 
-        return <div>{status}</div>
+        return <div>
+            {status}
+        </div>
     }
 }
 
 class App extends React.Component {
     constructor(props) {
         super(props);
+        this.resetState();
+    }
 
+    resetState() {
         this.state = {
             game: new Game(),
             winner: null,
             turn: 0
         };
+    }
+
+    onReset() {
+        this.resetState();
+        this.setState(this.state);
     }
 
     onUserClick(position) {
@@ -88,6 +98,7 @@ class App extends React.Component {
     render() {
         return (<div>
             <Board boardState={this.state.game.board} onUserClick={(pos)=>this.onUserClick(pos)} />
+            <button onClick={(e) => this.onReset()}>Reset game</button>
             <GameStatus winner={this.state.winner}/>
         </div>);
     }
