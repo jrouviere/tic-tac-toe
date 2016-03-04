@@ -77,7 +77,7 @@ class App extends React.Component {
         if(this.state.winner === null) {
             let player = ((this.state.turn % 2 == 0) ? PLAYER_1 : PLAYER_2);
 
-            this.state.game.board[position.i][position.j] = player;
+            this.state.game.setCell(position.i, position.j, player);
             this.state.turn++;
             this.state.winner = this.state.game.checkWinner();
 

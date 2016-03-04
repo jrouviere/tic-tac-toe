@@ -21,6 +21,10 @@ export class Game {
         ];
     }
 
+    setCell(i, j, value) {
+        this.board[i][j] = value;
+    }
+
     countCells(row) {
         let empty = 0;
         let player1 = 0;
