@@ -1,4 +1,5 @@
 
+export const TIE = 0;
 export const PLAYER_1 = 1;
 export const PLAYER_2 = 2;
 
@@ -49,6 +50,18 @@ export class Game {
         return null;
     }
 
+    isGameEnded() {
+        //if we find one free cell, the game is not over
+        for(let row of this.board) {
+            for(let cell of row) {
+                if(cell === null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     checkWinner() {
         let toCheck = [];
 
@@ -77,12 +90,15 @@ export class Game {
         toCheck.push(diag1);
         toCheck.push(diag2);
 
-
         for(let row of toCheck) {
             let winner = this.checkRowWinner(row);
             if(winner != null) {
                 return winner;
             }
+        }
+
+        if(this.isGameEnded()) {
+            return TIE;
         }
 
         // no winners

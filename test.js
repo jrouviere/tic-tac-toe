@@ -29,7 +29,7 @@ describe('Game', () => {
         });
 
     });
-    
+
     describe('#checkWinner()', () => {
         it('returns null if board is empty', () => {
             game.board = [
@@ -74,6 +74,26 @@ describe('Game', () => {
             assert.equal(game.checkWinner(), PLAYER_1);
         });
 
+    });
+
+
+    describe('#isGameEnded()', () => {
+        it('returns true if board is full', () => {
+            game.board = [
+                [PLAYER_1, PLAYER_2, PLAYER_1],
+                [PLAYER_2, PLAYER_1, PLAYER_2],
+                [PLAYER_2, PLAYER_1, PLAYER_1]
+            ];
+            assert.equal(game.isGameEnded(), true);
+        });
+        it('returns false if board is not full', () => {
+            game.board = [
+                [PLAYER_1, PLAYER_2, PLAYER_1],
+                [null, PLAYER_2, PLAYER_2],
+                [PLAYER_1, PLAYER_1, PLAYER_2]
+            ];
+            assert.equal(game.isGameEnded(), false);
+        });
     });
 
 });
