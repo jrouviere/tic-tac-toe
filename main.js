@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {PLAYER_1, PLAYER_2, TIE, Game} from './game.js';
+import {AI} from './ai.js';
 
 class Cell extends React.Component {
     onClick(event) {
@@ -67,6 +68,8 @@ class GameStatus extends React.Component {
 class App extends React.Component {
     constructor(props) {
         super(props);
+
+        this.ai = new AI();
         this.resetState();
     }
 
@@ -78,12 +81,7 @@ class App extends React.Component {
         };
     }
 
-    onReset() {
-        this.resetState();
-        this.setState(this.state);
-    }
-
-    onUserClick(position) {
+    playTurn(position) {
         if(this.state.winner === null) {
             let player = ((this.state.turn % 2 == 0) ? PLAYER_1 : PLAYER_2);
 
@@ -92,6 +90,20 @@ class App extends React.Component {
             this.state.winner = this.state.game.checkWinner();
 
             this.setState(this.state);
+        }
+    }
+
+    onReset() {
+        this.resetState();
+        this.setState(this.state);
+    }
+
+    onUserClick(position) {
+        this.playTurn(position);
+
+        if(this.state.winner === null) {
+            let aiPos = this.ai.avoidLoosing(this.state.game);
+            this.playTurn(aiPos);
         }
     }
 
