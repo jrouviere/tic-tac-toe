@@ -43,12 +43,12 @@ export class Game {
         return {empty, player1, player2};
     }
 
-    checkRowWinner(row) {
-        let count = this.countCells(row);
-        if(count.player1 === row.length) {
+    checkLineWinner(line) {
+        let count = this.countCells(line);
+        if(count.player1 === line.length) {
             return PLAYER_1;
         }
-        if(count.player2 === row.length) {
+        if(count.player2 === line.length) {
             return PLAYER_2;
         }
         return null;
@@ -66,24 +66,24 @@ export class Game {
         return true;
     }
 
-    checkWinner() {
-        let toCheck = [];
+    getAllLines() {
+        let lines = [];
 
-        // check all rows
+        // all rows
         for(let i=0; i<this.board.length; i++) {
-            toCheck.push(this.board[i]);
+            lines.push(this.board[i]);
         }
 
-        // check all columns
+        // all columns
         for(let j=0; j<this.board[0].length; j++) {
             let column = [];
             for(let i=0; i<this.board.length; i++) {
                 column.push(this.board[i][j]);
             }
-            toCheck.push(column);
+            lines.push(column);
         }
 
-        // check both diagonals
+        // both diagonals
         let diag1 = [];
         let diag2 = [];
         let length = this.board.length;
@@ -91,11 +91,17 @@ export class Game {
             diag1.push(this.board[i][i]);
             diag2.push(this.board[i][length-i-1]);
         }
-        toCheck.push(diag1);
-        toCheck.push(diag2);
+        lines.push(diag1);
+        lines.push(diag2);
 
-        for(let row of toCheck) {
-            let winner = this.checkRowWinner(row);
+        return lines;
+    }
+
+    checkWinner() {
+        let linesToCheck = this.getAllLines();
+
+        for(let line of linesToCheck) {
+            let winner = this.checkLineWinner(line);
             if(winner != null) {
                 return winner;
             }
