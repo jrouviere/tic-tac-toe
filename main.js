@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {PLAYER_1, PLAYER_2, Game} from './game.js';
+import {PLAYER_1, PLAYER_2, TIE, Game} from './game.js';
 
 class Cell extends React.Component {
     onClick(event) {
@@ -42,29 +42,54 @@ class Board extends React.Component {
     }
 }
 
+class GameStatus extends React.Component {
+    render() {
+        let status = "";
+
+        switch (this.props.winner) {
+            case PLAYER_1:
+                status = "Player 1 wins!";
+                break;
+            case PLAYER_2:
+                status = "Player 2 wins!";
+                break;
+            case TIE:
+                status = "Tie!";
+                break;
+        }
+
+        return <div>{status}</div>
+    }
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             game: new Game(),
+            winner: null,
             turn: 0
         };
     }
 
     onUserClick(position) {
-        let player = ((this.state.turn % 2 == 0) ? PLAYER_1 : PLAYER_2);
+        if(this.state.winner === null) {
+            let player = ((this.state.turn % 2 == 0) ? PLAYER_1 : PLAYER_2);
 
-        this.state.game.board[position.i][position.j] = player;
-        this.state.turn++;
+            this.state.game.board[position.i][position.j] = player;
+            this.state.turn++;
+            this.state.winner = this.state.game.checkWinner();
 
-        console.log(this.state.game.checkWinner());
-
-        this.setState(this.state);
+            this.setState(this.state);
+        }
     }
 
     render() {
-        return <Board boardState={this.state.game.board} onUserClick={(pos)=>this.onUserClick(pos)} />
+        return (<div>
+            <Board boardState={this.state.game.board} onUserClick={(pos)=>this.onUserClick(pos)} />
+            <GameStatus winner={this.state.winner}/>
+        </div>);
     }
 }
 
