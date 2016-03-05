@@ -3,11 +3,12 @@ var webpack = require('webpack');
 
 module.exports = { 
     entry: './main.js',
-     output: {
+    devtool: 'source-map',
+    output: {
         path: __dirname,
         filename: 'bundle.js'
     },
-     module: {   
+    module: {   
         loaders: [{
             test: /.jsx?$/,
             loader: 'babel-loader',
