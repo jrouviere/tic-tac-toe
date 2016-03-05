@@ -33,4 +33,4 @@ Files breakdown:
 
 ## Screenshot
 
-[[https://github.com/jrouviere/tic-tac-toe/blob/master/screenshot.png|alt=tictactoe]]
+[[https://github.com/jrouviere/tic-tac-toe/blob/master/screenshot.png]]
