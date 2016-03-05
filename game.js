@@ -5,7 +5,7 @@ export const PLAYER_2 = 2;
 
 export class Game {
 
-    constructor() {
+    constructor(size=3) {
         /*
             Each cell is either:
                 null -> empty
@@ -14,11 +14,16 @@ export class Game {
 
             The board has to be a square!
         */
-        this.board = [
-            [null, null, null],
-            [null, null, null],
-            [null, null, null]
-        ];
+        //build the board
+        this.size = size;
+        this.board = [];
+        for(let i=0; i<size; i++) {
+            let row = [];
+            for(let j=0; j<size; j++) {
+                row.push(null);
+            }
+            this.board.push(row);
+        }
     }
 
     setCell(i, j, value) {
@@ -45,10 +50,10 @@ export class Game {
 
     checkLineWinner(line) {
         let count = this.countCells(line);
-        if(count.player1 === line.length) {
+        if(count.player1 === this.size) {
             return PLAYER_1;
         }
-        if(count.player2 === line.length) {
+        if(count.player2 === this.size) {
             return PLAYER_2;
         }
         return null;
@@ -70,14 +75,14 @@ export class Game {
         let lines = [];
 
         // all rows
-        for(let i=0; i<this.board.length; i++) {
+        for(let i=0; i<this.size; i++) {
             lines.push(this.board[i]);
         }
 
         // all columns
-        for(let j=0; j<this.board[0].length; j++) {
+        for(let j=0; j<this.size; j++) {
             let column = [];
-            for(let i=0; i<this.board.length; i++) {
+            for(let i=0; i<this.size; i++) {
                 column.push(this.board[i][j]);
             }
             lines.push(column);
@@ -86,10 +91,9 @@ export class Game {
         // both diagonals
         let diag1 = [];
         let diag2 = [];
-        let length = this.board.length;
-        for(let i=0; i<length; i++) {
+        for(let i=0; i<this.size; i++) {
             diag1.push(this.board[i][i]);
-            diag2.push(this.board[i][length-i-1]);
+            diag2.push(this.board[i][this.size-i-1]);
         }
         lines.push(diag1);
         lines.push(diag2);
