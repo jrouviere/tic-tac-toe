@@ -33,4 +33,4 @@ Files breakdown:
 
 ## Screenshot
 
-[[https://github.com/jrouviere/tic-tac-toe/blob/master/screenshot.png]]
+![Tic Tac Toe screenshot](https://raw.githubusercontent.com/jrouviere/tic-tac-toe/master/screenshot.png)
