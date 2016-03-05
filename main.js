@@ -65,20 +65,38 @@ class GameStatus extends React.Component {
     }
 }
 
+class Control extends React.Component {
+    render() {
+        return <div>
+            <button onClick={this.props.onReset}>Reset game</button>
+            <button onClick={this.props.onChangeSize(3)}>3x3</button>
+            <button onClick={this.props.onChangeSize(4)}>4x4</button>
+            <button onClick={this.props.onChangeSize(5)}>5x5</button>
+        </div>;
+    }
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
 
+        this.size = 3;
         this.ai = new AI();
         this.resetState();
     }
 
     resetState() {
         this.state = {
-            game: new Game(),
+            game: new Game(this.size),
             winner: null,
             turn: 0
         };
+    }
+
+    setSize(size) {
+        this.size = size;
+        this.resetState();
+        this.setState(this.state);
     }
 
     playTurn(position) {
@@ -109,8 +127,8 @@ class App extends React.Component {
 
     render() {
         return (<div>
+            <Control onReset={(e) => this.onReset()} onChangeSize={(n) => {return () => this.setSize(n)}} />
             <Board boardState={this.state.game.board} onUserClick={(pos)=>this.onUserClick(pos)} />
-            <button onClick={(e) => this.onReset()}>Reset game</button>
             <GameStatus winner={this.state.winner}/>
         </div>);
     }
