@@ -13,14 +13,14 @@ npm install
 # run tests
 npm test
 
-# run server
+# run webpack dev server
 npm run serve
 ```
 
 
 ## Design
 
-This demo is built with ES6 and React. ES6 code is transpiled by Babel with a simple Webpack configuration.
+This demo is built with ES6 and React. ES6 code is transpiled to ES5 by Babel with a simple Webpack configuration.
 
 Files breakdown:
 * index.html: a straightforward html page to load the javascript app
@@ -29,3 +29,8 @@ Files breakdown:
 * game.js: game business logic
 * ai.js: basic decision making for the computer player
 * test.js: unit tests built with mocha
+
+
+## Screenshot
+
+[[https://github.com/jrouviere/tic-tac-toe/blob/master/screenshot.png|alt=tictactoe]]
