@@ -26,7 +26,7 @@ class Cell extends React.Component {
 class Board extends React.Component {
     render() {
         let rows = [];
-
+        //build all cells of the board
         for(let i=0; i<this.props.boardState.length; i++) {
             let boardRow = this.props.boardState[i];
             let cells = [];
@@ -44,6 +44,7 @@ class Board extends React.Component {
 }
 
 class GameStatus extends React.Component {
+    //display a message when the game has ended
     render() {
         let status = "";
 
@@ -66,6 +67,7 @@ class GameStatus extends React.Component {
 }
 
 class Control extends React.Component {
+    //some ui to change game settings
     render() {
         return <div>
             <button onClick={this.props.onReset}>Reset game</button>
