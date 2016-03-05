@@ -21,7 +21,7 @@
 }
 
 .cell.cross:before {
-    content: "\2718";
+    content: "\2717";
 }
 
 .cell.circle:before {
