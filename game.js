@@ -71,6 +71,18 @@ export class Game {
         return true;
     }
 
+    getAllAvailableCells() {
+        let cells = [];
+        for(let i=0; i<this.size; i++) {
+            for(let j=0; j<this.size; j++) {
+                if(this.board[i][j] === null) {
+                    cells.push( {i:i, j:j} );
+                }
+            }
+        }
+        return cells;
+    }
+
     getAllLines() {
         let lines = [];
 
