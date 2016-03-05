@@ -1,7 +1,7 @@
 import assert from 'assert';
 
 import {PLAYER_1, PLAYER_2, Game} from './game.js';
-
+import {AI} from './ai.js';
 
 describe('Game', () => {
 
@@ -93,6 +93,40 @@ describe('Game', () => {
                 [PLAYER_1, PLAYER_1, PLAYER_2]
             ];
             assert.equal(game.isGameEnded(), false);
+        });
+    });
+
+});
+
+describe('AI', () => {
+
+    let game;
+    let ai;
+    beforeEach(() => {
+        game = new Game();
+        ai = new AI();
+    });
+
+    describe('#avoidLoosing()', () => {
+        it('returns position of immediate loss', () => {
+            game.board = [
+                [null,     PLAYER_2, PLAYER_1],
+                [PLAYER_2, PLAYER_1, null],
+                [null,     PLAYER_1, null]
+            ];
+            assert.deepEqual(ai.avoidLoosing(game), {i:2, j:0});
+        });
+    });
+
+
+    describe('#tryWinning()', () => {
+        it('returns position of immediate win', () => {
+            game.board = [
+                [PLAYER_1, null,     PLAYER_1],
+                [PLAYER_2, PLAYER_2, null],
+                [null,     PLAYER_1, null]
+            ];
+            assert.deepEqual(ai.tryWinning(game), {i:1, j:2});
         });
     });
 

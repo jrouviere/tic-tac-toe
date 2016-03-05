@@ -3,39 +3,62 @@ import {PLAYER_1, PLAYER_2, TIE, Game} from './game.js';
 
 export class AI {
 
-    firstAvailableCell(game) {
-        let board = game.board;
-        for(let i=0; i<board.length; i++) {
-            for(let j=0; j<board[i].length; j++) {
-                if(board[i][j] === null) {
-                    return {i:i, j:j};
+    getAllAvailableCells(game) {
+        let cells = [];
+        for(let i=0; i<game.size; i++) {
+            for(let j=0; j<game.size; j++) {
+                if(game.board[i][j] === null) {
+                    cells.push( {i:i, j:j} );
                 }
             }
+        }
+        return cells;
+    }
+
+    firstAvailableCell(game) {
+        let cells = this.getAllAvailableCells(game);
+        if(cells.length > 0) {
+            return cells[0];
         }
         return null;
     }
 
-    avoidLoosing(game) {
-        let board = game.board;
-        //check all possibilities, find one which would let us win
-        for(let i=0; i<board.length; i++) {
-            for(let j=0; j<board[i].length; j++) {
-                if(board[i][j] === null) {
+    randomCell(game) {
+        let cells = this.getAllAvailableCells(game);
+        if(cells.length > 0) {
+            return cells[Math.floor(Math.random() * cells.length)];
+        }
+        return null;
+    }
 
-                    //TODO: make a clone of the board
-                    board[i][j] = PLAYER_1;
-                    let winner = game.checkWinner();
-                    board[i][j] = null;
+    findWinningMove(game, player) {
+        //check all possibilities, find one which would let the other player win
+        let cells = this.getAllAvailableCells(game);
 
-                    if(winner === PLAYER_1){
-                        return {i:i, j:j};
-                    }
-                }
+        for(let cell of cells) {
+            //TODO: make a clone of the board
+            game.board[cell.i][cell.j] = player;
+            let winner = game.checkWinner();
+            game.board[cell.i][cell.j] = null;
+
+            if(winner === player){
+                return cell;
             }
         }
 
-        //not found return first available
-        return this.firstAvailableCell(game);
+        return null;
+    }
+
+    avoidLoosing(game) {
+        return this.findWinningMove(game, PLAYER_1);
+    }
+
+    tryWinning(game) {
+        return this.findWinningMove(game, PLAYER_2);
+    }
+
+    chooseMove(game) {
+        return this.tryWinning(game) || this.avoidLoosing(game) || this.randomCell(game);
     }
 
 }

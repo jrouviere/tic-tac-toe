@@ -120,7 +120,7 @@ class App extends React.Component {
         this.playTurn(position);
 
         if(this.state.winner === null) {
-            let aiPos = this.ai.avoidLoosing(this.state.game);
+            let aiPos = this.ai.chooseMove(this.state.game);
             this.playTurn(aiPos);
         }
     }
