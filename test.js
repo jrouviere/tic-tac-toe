@@ -10,22 +10,22 @@ describe('Game', () => {
         game = new Game();
     });
 
-    describe('#checkRowWinner()', () => {
+    describe('#checkLineWinner()', () => {
 
         it('returns PLAYER1 if row is all 1', () => {
-            assert.equal(game.checkRowWinner([PLAYER_1, PLAYER_1, PLAYER_1]), PLAYER_1);
+            assert.equal(game.checkLineWinner([PLAYER_1, PLAYER_1, PLAYER_1]), PLAYER_1);
         });
 
         it('returns PLAYER2 if row is all 2', () => {
-            assert.equal(game.checkRowWinner([PLAYER_2, PLAYER_2, PLAYER_2]), PLAYER_2);
+            assert.equal(game.checkLineWinner([PLAYER_2, PLAYER_2, PLAYER_2]), PLAYER_2);
         });
 
         it('returns null if row is mixed', () => {
-            assert.equal(game.checkRowWinner([PLAYER_1, PLAYER_2, PLAYER_1]), null);
+            assert.equal(game.checkLineWinner([PLAYER_1, PLAYER_2, PLAYER_1]), null);
         });
 
         it('returns null if row is incomplete', () => {
-            assert.equal(game.checkRowWinner([PLAYER_1, null, PLAYER_1]), null);
+            assert.equal(game.checkLineWinner([PLAYER_1, null, PLAYER_1]), null);
         });
 
     });
