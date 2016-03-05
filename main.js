@@ -126,7 +126,7 @@ class App extends React.Component {
     }
 
     render() {
-        return (<div>
+        return (<div className="game">
             <Control onReset={(e) => this.onReset()} onChangeSize={(n) => {return () => this.setSize(n)}} />
             <Board boardState={this.state.game.board} onUserClick={(pos)=>this.onUserClick(pos)} />
             <GameStatus winner={this.state.winner}/>
